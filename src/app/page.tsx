@@ -1,4 +1,5 @@
 import { InputText } from "@/components/InputText";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
   // declaração de variável de texto
@@ -22,7 +23,7 @@ export default function Home() {
   // React Fragment <></>
   return (
     <>
-      <h1>Hello World, { name }!</h1>
+      {/* <h1>Hello World, { name }!</h1>
       <h2>
         { 
           idade < 18 ? 
@@ -34,16 +35,17 @@ export default function Home() {
             }>é menor de idade</span> 
           :<span style={{ color: "green" }}>é maior de idade</span> 
         }
-      </h2>
-      <div>
+      </h2> */}
+      <div className="mx-auto my-auto">
         <InputText label="usuário:" inputName="username" 
-          placeholder="Nome do usuário" value=""></InputText>
+          placeholder="Nome do usuário" value="" id="username"></InputText>
+        
         <br/>
         <label>senha:</label>
         <input type="password"></input>
         <br/>
         <br/>
-        <button type="button">entrar</button>
+        <Button variant="primary">entrar</Button>
       </div>
     </>
   );
