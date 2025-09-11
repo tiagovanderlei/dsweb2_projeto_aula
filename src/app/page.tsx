@@ -1,7 +1,10 @@
+'use client';
+
 import { InputText } from "@/components/InputText";
+import { redirect } from "next/navigation";
 import { Button } from "react-bootstrap";
 
-export default function Home() {
+export default function Login() {
   // declaração de variável de texto
   let name: string;
   // atribuição
@@ -45,7 +48,9 @@ export default function Home() {
         <input type="password"></input>
         <br/>
         <br/>
-        <Button variant="primary">entrar</Button>
+        <Button variant="primary" onClick={
+          () => redirect("/home")
+        }>entrar</Button>
       </div>
     </>
   );
