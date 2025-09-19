@@ -9,13 +9,16 @@ interface InputTextProps {
     value?: string;
     id?: string;
     onChange?: (e: ChangeEvent<any>) => void
+    error?: string | undefined;
 }
 
 // props: parametro da função, 
 // que recebe todas as propriedades do componente (através de um objeto)
 export function InputText(props: InputTextProps) {
     // const label = props.label;
-    const { label, inputName, placeholder, value, id, onChange, } 
+    const { 
+        label, inputName, placeholder, 
+        value, id, onChange, error, } 
         = props;
 
     return (
@@ -24,7 +27,12 @@ export function InputText(props: InputTextProps) {
             &nbsp;
             <Form.Control id={id} type="text" name={inputName} 
                 placeholder={placeholder} value={value}
-                onChange={onChange} ></Form.Control>
+                onChange={onChange}
+                isInvalid={!!error} ></Form.Control>
+
+            <Form.Control.Feedback type="invalid">
+                {error}
+            </Form.Control.Feedback>
         </>
     );
 }

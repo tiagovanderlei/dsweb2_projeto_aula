@@ -1,6 +1,7 @@
 'use client';
 
 import { InputText } from "@/components/InputText";
+import { loginSchema } from "@/schemas/loginSchema";
 import { useFormik } from "formik";
 import { redirect } from "next/navigation";
 import { Button, Form } from "react-bootstrap";
@@ -31,16 +32,27 @@ export default function Login() {
 
   // disponibiliza todas as funções necessárias para manipulação do formulário
   const formik = useFormik<FormValues>({
-    // valores iniciais dol formulario
+    // valores iniciais do formulario
     initialValues: {
+      username: "",
+      password: "",
     },
+    validationSchema: loginSchema,
     // função disparada quando o formulário é enviado
     onSubmit: (values) => {
       console.log(values);
     }
   });
 
-  const { handleSubmit, values, handleChange } = formik;
+  const { 
+    handleSubmit, 
+    values, 
+    handleChange,
+    errors
+  } = formik;
+
+  // 
+
   // formik.handleSubmit
 
   // React Fragment <></>
@@ -66,6 +78,7 @@ export default function Login() {
           value={values.username} 
           id="username"
           onChange={handleChange}
+          error={errors.username}
         ></InputText>
         
         <br/>
@@ -74,6 +87,7 @@ export default function Login() {
           type="password" 
           value={values.password}
           onChange={handleChange}
+          id="password"
           ></input>
         <br/>
         <br/>
