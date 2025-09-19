@@ -1,17 +1,18 @@
 'use client';
 
 import { InputText } from "@/components/InputText";
+import { useFormik } from "formik";
 import { redirect } from "next/navigation";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 export default function Login() {
   // declaração de variável de texto
-  let name: string;
+  // let name: string;
   // atribuição
-  name = "João";
+  // name = "João";
   
   // declaração de variável numerica
-  const idade: number = 15;
+  // const idade: number = 15;
 
   // if-else: utilizado quando a lógica é muito complexa
 
@@ -23,6 +24,25 @@ export default function Login() {
 
   // { name } => permite acessar a variável "name" dentro de um componente
   
+  interface FormValues {
+    username?: string;
+    password?: string;
+  }
+
+  // disponibiliza todas as funções necessárias para manipulação do formulário
+  const formik = useFormik<FormValues>({
+    // valores iniciais dol formulario
+    initialValues: {
+    },
+    // função disparada quando o formulário é enviado
+    onSubmit: (values) => {
+      console.log(values);
+    }
+  });
+
+  const { handleSubmit, values, handleChange } = formik;
+  // formik.handleSubmit
+
   // React Fragment <></>
   return (
     <>
@@ -40,17 +60,25 @@ export default function Login() {
         }
       </h2> */}
       <div className="mx-auto my-auto">
+      <Form onSubmit={handleSubmit}>
         <InputText label="usuário:" inputName="username" 
-          placeholder="Nome do usuário" value="" id="username"></InputText>
+          placeholder="Nome do usuário" 
+          value={values.username} 
+          id="username"
+          onChange={handleChange}
+        ></InputText>
         
         <br/>
         <label>senha:</label>
-        <input type="password"></input>
+        <input 
+          type="password" 
+          value={values.password}
+          onChange={handleChange}
+          ></input>
         <br/>
         <br/>
-        <Button variant="primary" onClick={
-          () => redirect("/home")
-        }>entrar</Button>
+        <Button variant="primary" type="submit">entrar</Button>
+      </Form>
       </div>
     </>
   );
