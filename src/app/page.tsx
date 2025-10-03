@@ -3,10 +3,13 @@
 import { InputText } from "@/components/InputText";
 import { loginSchema } from "@/schemas/loginSchema";
 import { useFormik } from "formik";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button, Form } from "react-bootstrap";
 
 export default function Login() {
+  // permite navegação programática
+  const router = useRouter();
+
   // declaração de variável de texto
   // let name: string;
   // atribuição
@@ -41,6 +44,10 @@ export default function Login() {
     // função disparada quando o formulário é enviado
     onSubmit: (values) => {
       console.log(values);
+      
+      if(values.username === "admin" && values.password === "admin123") {
+        router.push("/home");
+      }
     }
   });
 
