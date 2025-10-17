@@ -7,7 +7,6 @@ let total: number = 0;
 let operacao: string = "";
 
 export default function Calculadora() {
-    // variaveis de estado
     const [visor, setVisor] = useState<string>("");
 
     console.log(total);
@@ -46,7 +45,6 @@ export default function Calculadora() {
 
             <Button onClick={() => setVisor("")}>Apagar</Button>
             <Button onClick={() => removeUltimoDigito()}>{"<-"}</Button>
-            
         </div>
     );
 }
