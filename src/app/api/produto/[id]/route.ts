@@ -2,13 +2,12 @@
  * /produto
  * 
  * Métodos HTTP
- * - GET: consulta
+ * - GET: consulta por id
  * - PUT: alteração
  * - PATCH: alteração parcial
- * - POST: inserção
  * - DELETE: exclusão
  * 
- * /api/produto
+ * /api/produto/[id]
  * 
  * HTTP status code:
  * - 200 sucesso
@@ -21,17 +20,18 @@
 
 import { NextResponse } from "next/server";
 
-export function GET(){
+export function GET(request: any, { params }: any){
+    
     return NextResponse.json(
-        [{
-            id: 1,
+        {
+            id: Number(params.id),
             nome: "Bolacha Trakinas", 
             descricao: "Bolacha recheada, sabor morango", 
-            categoria: "Outros", 
+            categoria: "5", 
             valor: 2.50, 
             estoque: 200, 
             fornecedor: "Unilever"
-        }], 
+        }, 
         {status: 200}
     );
 }

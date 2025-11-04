@@ -22,11 +22,8 @@ export function InputNumber(props: InputNumberProps) { // props: parametro da fu
     return (
         <>
         <Form.Label htmlFor={id}>{label}</Form.Label>
-        
         <Form.Control id={id} name={inputName} value={value} placeholder={placeholder} onChange={onChange} isInvalid={!!error}></Form.Control>
-
         <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         </>
     );
 }
-

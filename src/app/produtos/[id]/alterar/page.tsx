@@ -7,8 +7,8 @@ import { useFormik } from "formik";
 import error from "next/error";
 import { Button, Form } from "react-bootstrap";
 import { number } from "yup";
-import { ChangeEvent } from "react";
-
+import { ChangeEvent, useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 export default function Alterar() {
     interface FormValues {
@@ -22,13 +22,46 @@ export default function Alterar() {
         categoria?: string;
     }
 
+    /**
+     * Hooks somente podem ser utilizados dentro de componentes, 
+     * ou dentro de um outro hook
+     */
+
+    const params = useParams();
+
+    // variavel de estado que armazena o produto retornado pela API
+    const [produto, setProduto] = useState<any>();
+
+    useEffect(() => {
+        const productId = params.id;
+
+        const buscaProduto = async () => {
+            const resposta = await fetch(
+                `http://localhost:3000/api/produto/${productId}`,
+                {
+                    method: "GET",
+                }
+            );
+
+            const produtoResposta = await resposta.json();
+            console.log(produtoResposta.id);
+            setProduto(produtoResposta);
+        }
+
+        buscaProduto();
+    }, []);
+
     const formik = useFormik<FormValues> ({
-        initialValues: { 
-          codigo: "",
-          nome: "",
-          descricao: "",
-          fornecedor: "",
+        initialValues: {
+          codigo: produto?.id,
+          nome: produto?.nome,
+          descricao: produto?.descricao,
+          fornecedor: produto?.fornecedor,
+          valor: produto?.valor,
+          estoque: produto?.estoque,
+          categoria: produto?.categoria,
         },
+        enableReinitialize: true,
         validationSchema: cadastroProdutoSchema,
         onSubmit: (values) => {
           console.log(values);
@@ -41,7 +74,7 @@ export default function Alterar() {
     return (
         <>  
             <div id="formulario">
-                <Form>
+                <Form >
                     <h1> Cadastro de Produtos </h1>
 
                     <InputText label="Código" inputName="codigo" placeholder="Digite o código do produto" value={values.codigo} onChange={handleChange} id="codigo" error={errors.codigo} />
@@ -49,7 +82,13 @@ export default function Alterar() {
                     <InputText label="Descrição" inputName="descricao" placeholder="Digite a descrição do produto" value={values.descricao} onChange={handleChange} id="descricao" error={errors.codigo} />
 
                     <Form.Label style={{fontWeight: 700}}>Categoria</Form.Label>
-                    <Form.Select aria-label="Default select example" name="categoria" onChange={handleChange} isInvalid={!!errors.categoria}>
+                    <Form.Select 
+                        aria-label="Default select example" 
+                        name="categoria" 
+                        onChange={handleChange} 
+                        isInvalid={!!errors.categoria}
+                        value={values.categoria}
+                    >
                         <option>Escolha a categoria do produto</option>
                         <option value="1">Informática</option>
                         <option value="2">Moveis</option>

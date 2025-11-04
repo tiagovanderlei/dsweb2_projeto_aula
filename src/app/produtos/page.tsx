@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { redirect } from "next/navigation";
 
 export default function Produtos() {
     const [produtos, setProdutos] 
@@ -49,14 +50,22 @@ export default function Produtos() {
                 <tbody>
                     {
                         produtos.map((produto, index) => {
-                            return <tr key={index}>
-                                <td>{produto.nome}</td>
-                                <td>{produto.descricao}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                            return (
+                                <tr 
+                                    key={index} 
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                        redirect(`/produtos/${produto.id}/alterar`)
+                                    }}
+                                >
+                                    <td>{produto.nome}</td>
+                                    <td>{produto.descricao}</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            )
                         })
                     }
                     <tr>
