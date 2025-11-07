@@ -35,3 +35,12 @@ export function GET(request: any, { params }: any){
         {status: 200}
     );
 }
+
+export function PUT(request: any, { params }: any){
+    return NextResponse.json(
+        {
+            id: Number(params.id),
+        }, 
+        {status: 200}
+    );
+}

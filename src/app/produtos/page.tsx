@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { redirect } from "next/navigation";
+import { IProduto } from "./IProduto";
 
 export default function Produtos() {
     const [produtos, setProdutos] 
-        = useState<any[]>([]);
+        = useState<IProduto[]>([]);
     /**
      * toda "logica" a ser executada no "carregamento" da página
      * useEffect(() => {
@@ -16,7 +17,7 @@ export default function Produtos() {
      */
     useEffect(() => {
         console.log(">> passo 1");
-        fetch("http://localhost:3000/api/produto", {
+        fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/produto`, {
             method: "GET"
         }).then(async (response)=>{
             console.log(">> passo 2");
@@ -35,7 +36,7 @@ export default function Produtos() {
         <>
             <h1>Página de Produtos</h1>
             <Link href="/home">Home</Link>
-
+            <Button variant="primary" href="/produtos/cadastrar">Novo</Button>
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
@@ -60,22 +61,14 @@ export default function Produtos() {
                                 >
                                     <td>{produto.nome}</td>
                                     <td>{produto.descricao}</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td>{produto.categoria}</td>
+                                    <td>{produto.valor}</td>
+                                    <td>{produto.estoque}</td>
+                                    <td>{produto.fornecedor}</td>
                                 </tr>
                             )
                         })
                     }
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
                 </tbody>
             </Table>
         </>

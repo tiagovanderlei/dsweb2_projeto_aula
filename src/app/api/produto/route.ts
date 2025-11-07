@@ -35,3 +35,9 @@ export function GET(){
         {status: 200}
     );
 }
+
+export function POST(request: any) {
+    return NextResponse.json({
+        id: 1,
+    }, {status: 201})
+}
