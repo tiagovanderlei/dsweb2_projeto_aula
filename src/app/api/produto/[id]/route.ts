@@ -44,3 +44,10 @@ export function PUT(request: any, { params }: any){
         {status: 200}
     );
 }
+
+export function DELETE(request: any, { params }: any){
+    return new NextResponse(
+        null,
+        {status: 204}
+    );
+}
